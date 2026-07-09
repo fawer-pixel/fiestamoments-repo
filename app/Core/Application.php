@@ -6,65 +6,94 @@ namespace App\Core;
 class Application
 {
     public function run(): void
-    {
-        echo '<!DOCTYPE html>';
-        echo '<html lang="es">';
-        echo '<head>';
-        echo '<meta charset="UTF-8">';
-        echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
-        echo '<title>' . APP_NAME . '</title>';
+{
+    $router = new Router();
 
-        echo '<style>
-            body{
-                margin:0;
-                font-family:Arial,Helvetica,sans-serif;
-                background:#111;
-                color:#FFF;
-                display:flex;
-                justify-content:center;
-                align-items:center;
-                height:100vh;
-            }
+    $router->get('/', function ($request, $response) {
 
-            .card{
-                background:#1d1d1d;
-                padding:40px;
-                border-radius:12px;
-                text-align:center;
-                box-shadow:0 0 30px rgba(0,0,0,.35);
-            }
+        $response->html('
+            <!DOCTYPE html>
+            <html lang="es">
 
-            h1{
-                margin:0;
-                font-size:42px;
-            }
+            <head>
 
-            p{
-                color:#BBB;
-            }
+                <meta charset="UTF-8">
 
-            .ok{
-                color:#2ECC71;
-                margin-top:20px;
-                font-weight:bold;
-            }
-        </style>';
+                <title>Fiesta Moments</title>
 
-        echo '</head>';
-        echo '<body>';
+                <style>
 
-        echo '<div class="card">';
+                    body{
 
-        echo '<h1>🎉 Fiesta Moments</h1>';
+                        margin:0;
 
-        echo '<p>Version ' . APP_VERSION . '</p>';
+                        background:#111;
 
-        echo '<div class="ok">CORE iniciado correctamente</div>';
+                        color:white;
 
-        echo '</div>';
+                        display:flex;
 
-        echo '</body>';
+                        justify-content:center;
 
-        echo '</html>';
-    }
+                        align-items:center;
+
+                        height:100vh;
+
+                        font-family:Arial;
+
+                    }
+
+                    .card{
+
+                        text-align:center;
+
+                        padding:50px;
+
+                        border-radius:15px;
+
+                        background:#1e1e1e;
+
+                        box-shadow:0 0 25px rgba(0,0,0,.35);
+
+                    }
+
+                    h1{
+
+                        margin:0;
+
+                    }
+
+                    p{
+
+                        color:#BBB;
+
+                    }
+
+                </style>
+
+            </head>
+
+            <body>
+
+                <div class="card">
+
+                    <h1>🎉 Fiesta Moments</h1>
+
+                    <p>Router funcionando correctamente</p>
+
+                    <p>Versión '.APP_VERSION.'</p>
+
+                </div>
+
+            </body>
+
+            </html>
+
+        ');
+
+    });
+
+    $router->dispatch(new Request());
+
+}
 }
