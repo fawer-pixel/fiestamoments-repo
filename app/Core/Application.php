@@ -5,21 +5,26 @@ namespace App\Core;
 
 class Application
 {
+    private Router $router;
+
+    public function __construct()
+    {
+        $this->router = new Router();
+    }
+
     public function run(): void
-{
-    $router = new Router();
+    {
+        $routes = ROUTES_PATH . '/web.php';
 
-    $router->get('/', function () {
+        if (!is_file($routes)) {
 
-    $view = new View();
+            exit('No existe el archivo de rutas.');
+        }
 
-    $view->render('home', [
-        'message' => 'Core funcionando correctamente'
-    ]);
+        $registerRoutes = require $routes;
 
-});
+        $registerRoutes($this->router);
 
-    $router->dispatch(new Request());
-
-}
+        $this->router->dispatch(new Request());
+    }
 }
